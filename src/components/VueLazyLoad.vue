@@ -2,7 +2,7 @@
   <div class="container">
     <ul class="outer-wrapper">
       <li v-for="(img, key) in list" :key=key class="wrapper-item">
-        <img v-lazy="img.src" >
+        <img v-lazy="img.imgUrl" >
       </li>
     </ul>
   </div>
@@ -13,22 +13,14 @@ import serveFun from '@/service/demo/index'
 export default {
   data () {
     return {
-      list: [
-        {imgDes: 'imageOne', src: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3365018759,2226705862&fm=27&gp=0.jpg', id: '0'},
-        {imgDes: 'ImageTow', src: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=935292084,2640874667&fm=27&gp=0.jpg', id: '1'},
-        {imgDes: 'ImageThree', src: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3853852840,331334549&fm=27&gp=0.jpg', id: '2'},
-        {imgDes: 'ImageFour', src: 'https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1778874458,2287009633&fm=27&gp=0.jpg', id: '3'},
-        {imgDes: 'imageOne', src: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3365018759,2226705862&fm=27&gp=0.jpg', id: '4'}
-      ]
+      list: []
     }
   },
   methods: {
     getImgsList () {
-      debugger
       serveFun.getImgsFun().then(res => {
-        console.log(res.data);
         if (res.data.code === 0) {
-          this.list = res.data.data
+          this.list = res.data.data.slice()
         }
       }).catch(err => {
         console.log(err);
