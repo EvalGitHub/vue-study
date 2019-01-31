@@ -8,6 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "common-fun": "^1.1.0",
     "vue": "^2.5.17",
     "vue-lazyload": "^1.2.6",
