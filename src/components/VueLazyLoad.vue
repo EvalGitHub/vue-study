@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <ul class="outer-wrapper">
-      <li v-for="(img, key) in list" :key=key class="wrapper-item">
+      <li v-for="(img, key) in list" :key="key" class="wrapper-item">
         <img v-lazy="img.imgUrl" >
       </li>
     </ul>
@@ -19,6 +19,7 @@ export default {
   methods: {
     getImgsList () {
       serveFun.getImgsFun().then(res => {
+        console.log(res.data.data);
         if (res.data.code === 0) {
           this.list = res.data.data.slice()
         }

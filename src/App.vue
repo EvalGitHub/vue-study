@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/vuex">vuex</router-link>
-      <router-link to="/vueLazyLoad">vueLazyLoad</router-link>
+    <div id="nav" class="nav-bar">
+      <router-link class="nav-item" tag="div" to="/">Home</router-link> 
+      <router-link class="nav-item" tag="div" to="/about">About</router-link> 
+      <router-link class="nav-item" tag="div" to="/vuex">vuex</router-link> 
+      <router-link class="nav-item" tag="div" to="/vueLazyLoad">vueLazyLoad</router-link>
     </div>
-    <router-view/>
+    <div class="contain-view">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -16,7 +18,25 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
   margin-top: 60px;
+  display: flex;
+  justify-content: center;
+  padding:20px;
+}
+ #app .nav-bar{
+  flex: 0 0 200px;
+  margin-right:20px;
+  color: #2c3e50;
+}
+.nav-item{
+  display: flex;
+  height:30px;
+  cursor: pointer;
+}
+.contain-view{
+  flex:1;
+  padding:20px;
+  background: #2c3e50;
 }
 </style>

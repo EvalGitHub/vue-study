@@ -13,28 +13,28 @@ export default new Router({
       name: 'home',
       component: Home
     },
-    {
+    { // 路由懒加载
       path: '/about',
       name: 'about',
       // route level code-splitting
       // this generates a separate chunk (about.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      component: () => import(/* webpackChunkName: "about" */ './vuex/About.vue')
     },
     {
       path: '/vuex',
       name: 'vuex',
-      component: ()=> import('./views/Vuex.vue'),
+      component: ()=> import('./vuex/Vuex.vue'),
       children: [
         {
           path: '/',
           name: 'com01',
-          component: () => import('./views/com01.vue')
+          component: () => import('./vuex/com01.vue')
         },
         {
           path: '/com02',
           name: 'com02',
-          component: () => import('./views/com02.vue')
+          component: () => import('./vuex/com02.vue')
         },
       ]
     },
