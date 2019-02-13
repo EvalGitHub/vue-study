@@ -19,12 +19,12 @@ export default {
   methods: {
     getImgsList () {
       serveFun.getImgsFun().then(res => {
-        console.log(res.data.data);
         if (res.data.code === 0) {
           this.list = res.data.data.slice()
         }
       }).catch(err => {
         console.log(err);
+        this.list = [{imgUrl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3365018759,2226705862&fm=27&gp=0.jpg',title: 'noImg'}]
       })
     }
   },
