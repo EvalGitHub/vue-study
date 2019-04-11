@@ -64,6 +64,9 @@ export default {
 }
 </script>
 <style>
+.about{
+  background: #2c3e50;
+}
 .wrapper{
   height:40px;
   display: flex;

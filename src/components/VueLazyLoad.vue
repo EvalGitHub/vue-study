@@ -19,16 +19,16 @@ export default {
   methods: {
     getImgsList () {
       serveFun.getImgsFun().then(res => {
-        if (res.data.code === 0) {
+        if (res.data.code == 0) {
           this.list = res.data.data.slice()
         }
       }).catch(err => {
-        console.log(err);
         this.list = [{imgUrl: 'https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3365018759,2226705862&fm=27&gp=0.jpg',title: 'noImg'}]
       })
     }
   },
   created () {
+    console.log(process.env.NODE_ENV);
     this.getImgsList();
   }
 }
@@ -39,6 +39,7 @@ export default {
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  background: #2c3e50;
 }
 .outer-wrapper{
   width:300px;

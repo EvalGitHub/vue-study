@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "npm run serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "createComponent": "node src/createComponent.js"
@@ -11,9 +12,14 @@
   "dependencies": {
     "axios": "^0.18.0",
     "common-fun": "^1.1.0",
+    "css-color-function": "^1.3.3",
+    "hiper": "0.0.16",
+    "node-sass": "^4.11.0",
+    "sass-loader": "^7.1.0",
     "vue": "^2.5.17",
     "vue-lazyload": "^1.2.6",
     "vue-router": "^3.0.1",
+    "vue-server-renderer": "^2.6.8",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
@@ -48,5 +54,6 @@
     "> 1%",
     "last 2 versions",
     "not ie <= 8"
-  ]
+  ],
+  "dev-build": "vue-cli-service build --mode development"
 }

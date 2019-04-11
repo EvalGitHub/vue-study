@@ -42,6 +42,11 @@ export default new Router({
       path: '/vueLazyLoad',
       name: 'vueLazyLoad',
       component: () => import('./components/VueLazyLoad.vue')
+    },
+    {
+      path: '/changeTheme',
+      name: 'changeTheme',
+      component: () => import ('./components/ChangeTheme.vue')
     }
   ]
 })

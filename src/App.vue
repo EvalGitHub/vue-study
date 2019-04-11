@@ -5,6 +5,7 @@
       <router-link class="nav-item" tag="div" to="/about">About</router-link> 
       <router-link class="nav-item" tag="div" to="/vuex">vuex</router-link> 
       <router-link class="nav-item" tag="div" to="/vueLazyLoad">vueLazyLoad</router-link>
+      <router-link class="nav-item" tag="div" to="/changeTheme">changeTheme</router-link>
     </div>
     <div class="contain-view">
       <router-view/>
@@ -37,6 +38,6 @@
 .contain-view{
   flex:1;
   padding:20px;
-  background: #2c3e50;
+  /* background: #2c3e50; */
 }
 </style>

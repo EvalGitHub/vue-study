@@ -3,7 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
-
+import './utils/registerComponent.js'
 // or with options
 Vue.use(VueLazyload, {
   preLoad: 1.3,
