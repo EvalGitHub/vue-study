@@ -6,9 +6,12 @@
       <router-link class="nav-item" tag="div" to="/vuex">vuex</router-link> 
       <router-link class="nav-item" tag="div" to="/vueLazyLoad">vueLazyLoad</router-link>
       <router-link class="nav-item" tag="div" to="/changeTheme">changeTheme</router-link>
+      <router-link class="nav-item" tag="div" to="/renderChild">renderChild</router-link>
     </div>
     <div class="contain-view">
-      <router-view/>
+      <keep-alive>
+        <router-view></router-view>
+      </keep-alive>
     </div>
   </div>
 </template>

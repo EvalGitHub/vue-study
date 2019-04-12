@@ -47,6 +47,11 @@ export default new Router({
       path: '/changeTheme',
       name: 'changeTheme',
       component: () => import ('./components/ChangeTheme.vue')
+    },
+    {
+      path: '/renderChild',
+      name: 'renderChild',
+      component: () => import ('./views/RenderChildConponent.vue')
     }
   ]
 })
