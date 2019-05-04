@@ -3,6 +3,7 @@ import App from './App.vue'
 import store from './store'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
+import vMessage from './components/Toast/index' 
 import './utils/registerComponent.js'
 // or with options
 Vue.use(VueLazyload, {
@@ -12,7 +13,7 @@ Vue.use(VueLazyload, {
   attempt: 1,
   // listenEvents: [ 'scroll' ]
 })
-
+Vue.use(vMessage)
 Vue.config.productionTip = false
 
 new Vue({

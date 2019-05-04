@@ -23,7 +23,8 @@ export default {
     return {
       name: 'tom',
       age: 33,
-      sex: 'man'
+      sex: 'man',
+      total: ''
     }
   },
   methods: {
