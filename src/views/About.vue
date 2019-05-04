@@ -7,7 +7,8 @@
         this is inner
       </div>
     </div>
-    <props-component :name="name" :age="age" :sex="sex"/>
+    <props-component v-model="total" :name="name" :age="age" :sex="sex"/>
+    {{total}}
   </div>
 </template>
 <script>
