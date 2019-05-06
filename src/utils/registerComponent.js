@@ -20,6 +20,7 @@ function capitalizeFirstLetter (str) {
  * @return {string} BasicTable
  */
 function validateFileName (str) {
+  //console.log("组件路径", str)
   return /^\S+\.vue$/.test(str) &&
     str.replace(/^\S+\/(\w+)\.vue$/, (rs, $1) => {
       /**

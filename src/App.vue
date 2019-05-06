@@ -15,6 +15,16 @@
     </div>
   </div>
 </template>
+<script>
+ /* eslint-disable */ 
+export default {
+  watch: {
+     $route: function(to, from) { // 监听路由的改变
+      console.log(to)
+    }
+  }
+}
+</script>
 
 <style>
 #app {
