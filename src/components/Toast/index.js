@@ -1,4 +1,4 @@
-import Message from './Message.vue'
+import Messages from './Message.vue'
 
 const MESSAGE = {
   duration: 3000, // 显示的时间 ms
@@ -7,7 +7,7 @@ const MESSAGE = {
     if (typeof window !== 'undefined' && window.Vue) {
       Vue = window.Vue
     }
-    Vue.component('Message', Message)
+    Vue.component('Messages', Messages)
 
     function msg(type, text, callBack) {
       let msg
@@ -27,7 +27,7 @@ const MESSAGE = {
             text: msg,
             show: this.show
           }
-          return h('message', {props})
+          return h('Messages', {props}) // 第一个参数：为你在项目下面建立的任何组件名都行
         },
         data() {
           return {
