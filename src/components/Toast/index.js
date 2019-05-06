@@ -27,7 +27,7 @@ const MESSAGE = {
             text: msg,
             show: this.show
           }
-          return h('Messages', {props}) // 第一个参数：为你在项目下面建立的任何组件名都行
+          return h('Messages', {props}) // 第一个参数：为你在项目下面建立的任何组件名都行   
         },
         data() {
           return {
