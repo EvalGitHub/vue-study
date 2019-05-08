@@ -7,6 +7,7 @@
       <router-link class="nav-item" tag="div" to="/vueLazyLoad">vueLazyLoad</router-link>
       <router-link class="nav-item" tag="div" to="/changeTheme">changeTheme</router-link>
       <router-link class="nav-item" tag="div" to="/renderChild">renderChild</router-link>
+      <router-link class="nav-item" tag="div" to="/vueExtend">vueExtends</router-link>
     </div>
     <div class="contain-view">
       <keep-alive>
@@ -32,7 +33,7 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fff;
+  /* color: #fff; */
   margin-top: 60px;
   display: flex;
   justify-content: center;

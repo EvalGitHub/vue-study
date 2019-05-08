@@ -52,6 +52,11 @@ export default new Router({
       path: '/renderChild',
       name: 'renderChild',
       component: () => import ('./views/RenderChildConponent.vue')
-    }
+    },
+    {
+      path: '/vueExtend',
+      name: 'vueExtend',
+      component: () => import ('./views/VueExtends.vue')
+    },
   ]
 })

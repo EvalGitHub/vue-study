@@ -15,7 +15,6 @@ export default {
     methods: {
         handleClick: function () {
             this.$emit("input", '测试数据')
-            this.$message.info('普通消息') 
         }
     }
 }
