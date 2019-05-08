@@ -1,13 +1,37 @@
  <template>
   <div class="render-child-wrappe">
-    <div class="by-common">
-      <child :level="level">这是通过常用方式注册组件</child>
+    <div class="child-item">
+      <div class="by-common">
+        <child :level="level">这是通过常用方式注册组件</child>
+      </div>
     </div>
-    <GlobalChild :level="level">这是通过Vue.component注册的全局组件</GlobalChild>
+
+    <div class="child-item">
+      <GlobalChild :level="level">这是通过Vue.component注册的全局组件</GlobalChild>
+    </div>
+
+    <div class="child-item">
+      <el-input :name="name" @modelInput="val=>name=val"></el-input>
+      <div>v-model: {{name}}</div>
+    </div>
+
+    <div class="child-item">
+      <p>这是通过render 创建的组件中的slot</p>
+      <com-slot>
+        <h1 slot="header"><span>header slot</span></h1>
+        <h1><span>header default</span></h1>
+        <h1 slot="footer"><span>footer slot</span></h1>
+      </com-slot>
+    </div>
+
+    <div class="child-item">
+      <RenderComponentFun/>
+    </div>
   </div>
 </template>
 <script type='text/javascript'>
   // https://juejin.im/post/5afd6a88f265da0b9127a879
+  import RenderComponentFun from "@/components/renderComponentFun"
   import Child from "@/components/child"
   import Vue from 'vue'
   Vue.component('GlobalChild', {
@@ -60,19 +84,68 @@
       }
     }
   })   
-   
+  
+  // v-model
+  Vue.component("el-input", {
+    render: function (createElement) {
+      var self = this
+      return createElement('input', {
+        domProps: {
+          value: self.name
+        },
+        style: {
+          height: '20px',
+          padding: '5px'
+        },
+        on: {
+          input: function (event) {
+            self.$emit("modelInput", event.target.value)
+          }
+        }
+      })
+    },
+    props: {
+      name: String
+    }
+  })
+
+  // this.$slot的用法
+  Vue.component("com-slot", {
+    render (h) {
+      let header = this.$slots.header
+      let body = this.$slots.default
+      let footer = this.$slots.footer
+      return h("div", [
+        h("header", header),
+        h("main", body),
+        h("footer", footer),
+      ])
+    }
+  })
+
   export default {
     name: 'RenderChildComponent',
     components: {
-      Child
+      Child,
+      RenderComponentFun
     },
-    data() { return { level: 3 } }
+    data() { 
+      return {
+        name: 'this is el-input',
+        level: 3 
+      } 
+    }
   }
 </script>
 <style>
 .render-child-wrappe{
   font-size:20px;
   color:black;
+}
+.child-item{
+  background: #ddd;
+  margin:10px;
+  padding:10px
 }
 </style>
 
