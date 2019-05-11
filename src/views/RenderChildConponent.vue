@@ -27,6 +27,8 @@
     <div class="child-item">
       <RenderComponentFun/>
     </div>
+
+ 
   </div>
 </template>
 <script type='text/javascript'>
@@ -120,11 +122,47 @@
         h("main", body),
         h("footer", footer),
       ])
+    },
+    beforeCreate () {
+      console.log("this is com-slot beforeCreate")
+    },
+    created () {
+      console.log("this is com-slot created")
+    },
+    beforeMount () {
+      console.log("this is com-slot befroeMount")
+    },
+    mounted () {
+      console.log("this is com-slot mounted")
     }
   })
 
+  const mixin = {
+    data: {
+      name: 'tom',
+    },
+    methods: {
+      getName () {
+        console.log(this.name)
+      }
+    },
+    beforeCreate () {
+      console.log("this is mixin beforeCreate")
+    },
+    created () {
+      console.log("this is mixin created")
+    },
+    beforeMount () {
+      console.log("this is mixin befroeMount")
+    },
+    mounted () {
+      console.log("this is mixin mounted")
+    }
+  }
+
   export default {
     name: 'RenderChildComponent',
+    mixins: [mixin],
     components: {
       Child,
       RenderComponentFun
@@ -134,7 +172,19 @@
         name: 'this is el-input',
         level: 3 
       } 
-    }
+    },
+     beforeCreate () {
+      console.log("this is main beforeCreate")
+    },
+    created () {
+      console.log("this is main created")
+    },
+    beforeMount () {
+      console.log("this is main beforeMount")
+    },
+    mounted () {
+      console.log("this is main mounted")
+    },
   }
 </script>
 <style>
