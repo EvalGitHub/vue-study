@@ -2,7 +2,7 @@
   <div class="render-child-wrappe">
     <div class="child-item">
       <div class="by-common">
-        <child :level="level">这是通过常用方式注册组件</child>
+        <child :level="level" maxLength="4" value="agere4" @childChild="childChilds">这是通过常用方式注册组件</child>
       </div>
     </div>
 
@@ -25,7 +25,11 @@
     </div>
 
     <div class="child-item">
-      <RenderComponentFun/>
+      <RenderComponentFun />
+    </div>
+
+    <div class="child-item">
+      <button @click="getName">点击click</button>
     </div>
   </div>
 </template>
@@ -115,6 +119,7 @@
       let header = this.$slots.header
       let body = this.$slots.default
       let footer = this.$slots.footer
+      console.log("footer-slot", footer)
       return h("div", [
         h("header", header),
         h("main", body),
@@ -123,8 +128,44 @@
     }
   })
 
+  // mixin
+  const baseOptions = {
+    // template: `<p>{{firstName}}--{{lastName}}</p>`,
+    data: function () {
+      return {
+        firstName: 'Tom',
+        lastName: 'hans'
+      }
+    },
+    methods: {
+      getName () {
+        console.log(this.firstName + "---" + this.lastName)
+      }
+    },
+    beforeCreate () {
+      console.log("this is baseOptions beforeCreate")
+    },
+    created () {
+      console.log("this is baseOptions created")
+    },
+    beforeMount() {
+      console.log("this is baseOptions  beforeMount ")
+    },
+    mounted() {
+      console.log("this is baseOptions  mounted ")
+    },
+    beforeDestroy() {
+      console.log("this is baseOptions  beforeDestroy ")
+    },
+    destroyed() {
+     console.log("this is baseOptions  destroyed ")
+    }
+  }
+
   export default {
     name: 'RenderChildComponent',
+    // extends: baseOptions,
+    mixins: [baseOptions],
     components: {
       Child,
       RenderComponentFun
@@ -134,6 +175,32 @@
         name: 'this is el-input',
         level: 3 
       } 
+    },
+    methods: {
+      getName () {
+        console.log(this.name)
+      },
+      childChilds (msg) {
+        console.log(msg)
+      }
+    },
+    beforeCreate () {
+      console.log("this is main beforeCreate")
+    },
+    created () {
+      console.log("this is main created")
+    },
+    beforeMount() {
+      console.log("this is main  beforeMount ")
+    },
+    mounted() {
+      console.log("this is main  mounted ")
+    },
+    beforeDestroy() {
+      console.log("this is main  beforeDestroy ")
+    },
+    destroyed() {
+      console.log("this is main  mounted ")
     }
   }
 </script>

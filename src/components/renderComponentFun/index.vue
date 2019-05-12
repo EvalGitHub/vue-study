@@ -104,6 +104,10 @@ var TextItem = {
     },
     created: function () {
         this.change('img')
+    },
+    mounted () {
+        // console.log("当前组件的DOM实例", this.$el)
+        // console.log("当前组件的根vnode", this.$root)
     }
  }
 
