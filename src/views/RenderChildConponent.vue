@@ -31,6 +31,8 @@
     <div class="child-item">
       <button @click="getName">点击click</button>
     </div>
+
+ 
   </div>
 </template>
 <script type='text/javascript'>
@@ -125,6 +127,18 @@
         h("main", body),
         h("footer", footer),
       ])
+    },
+    beforeCreate () {
+      console.log("this is com-slot beforeCreate")
+    },
+    created () {
+      console.log("this is com-slot created")
+    },
+    beforeMount () {
+      console.log("this is com-slot befroeMount")
+    },
+    mounted () {
+      console.log("this is com-slot mounted")
     }
   })
 
