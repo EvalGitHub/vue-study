@@ -8,6 +8,7 @@
       <router-link class="nav-item" tag="div" to="/changeTheme">changeTheme</router-link>
       <router-link class="nav-item" tag="div" to="/renderChild">renderChild</router-link>
       <router-link class="nav-item" tag="div" to="/vueExtend">vueExtends</router-link>
+      <router-link class="nav-item" tag="div" to="/vueSlot">vueSlot</router-link>
     </div>
     <div class="contain-view">
       <keep-alive>

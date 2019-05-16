@@ -58,5 +58,10 @@ export default new Router({
       name: 'vueExtend',
       component: () => import ('./views/VueExtends.vue')
     },
+    {
+      path: '/vueSlot',
+      name: 'vueSlot',
+      component: () => import ('./views/VueSlot.vue')
+    },
   ]
 })

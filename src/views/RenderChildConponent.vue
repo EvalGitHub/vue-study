@@ -31,8 +31,6 @@
     <div class="child-item">
       <button @click="getName">点击click</button>
     </div>
-
- 
   </div>
 </template>
 <script type='text/javascript'>
