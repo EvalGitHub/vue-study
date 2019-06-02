@@ -63,5 +63,10 @@ export default new Router({
       name: 'vueSlot',
       component: () => import ('./views/VueSlot.vue')
     },
+    {
+      path: '/evelUi',
+      name: 'evelUi',
+      component: () => import ('./views/EvelUi.vue')
+    }
   ]
 })

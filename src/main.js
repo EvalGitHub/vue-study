@@ -4,8 +4,12 @@ import store from './store'
 import router from './router'
 import VueLazyload from 'vue-lazyload'
 import vMessage from './components/Toast/index' 
+
+import EvelUI from 'evel-ui';
+
 import './utils/registerComponent.js'
 // or with options
+
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: require('./assets/errors.jpg'),
@@ -14,6 +18,9 @@ Vue.use(VueLazyload, {
   // listenEvents: [ 'scroll' ]
 })
 Vue.use(vMessage)
+
+Vue.use(EvelUI) // 注册所有的样式组件
+
 Vue.config.productionTip = false
 
 new Vue({
