@@ -2,18 +2,18 @@
   <div>
     <p>this is slot </p>
     <div class="slot-container">
-      <base-layout :slotProps="slotProps">
+      <base-layout>
         <template v-slot:header>
           <h1 style="color: red"> header here might be a page title</h1>
         </template>
 
-         <template v-slot:default="{defaultSlot}">
+         <template v-slot:default>
            <div style="color: green">
               <p>A paragraph for the main content.</p>
               <p>And another one.</p>  
-              <span>name: {{defaultSlot.name}}</span> 
+              <span>name: {{userInfo.defaultSlot.name}}</span> 
               ---
-              <span>comment: {{defaultSlot.comment}}</span> 
+              <span>comment: {{userInfo.defaultSlot.comment}}</span> 
            </div>
          </template>
 
@@ -31,24 +31,6 @@ export default {
   components: {
     BaseLayout
   },
-  data () {
-    return {
-      slotProps: {
-        defaultSlot: {
-          name: 'default Name',
-          comment: 'this is show for default name'
-        },
-        headerSlot: {
-          name: 'header Name',
-          comment: 'this is show for header name'
-        },
-        footerSlot: {
-          name: 'footer Name',
-          comment: 'this is show for footer name'
-        }
-      }
-    }
-  }
 }
 </script>
 

@@ -4,8 +4,8 @@
       <slot name="header"></slot>
     </header>
     <main>
-      <slot name="default" :defaultSlot="slotProps.defaultSlot">
-        {{slotProps.defaultSlot.name}}
+      <slot name="default" v-bind:userInfo="userInfo">
+        {{userInfo.defaultSlot.name}}
       </slot>
     </main>
     <footer>
@@ -16,13 +16,23 @@
 <script>
 export default {
   name: 'BaseLayout',
-  props: {
-    slotProps: {
-      type: Object,
-      default: () => {
-        return {}
+  data () {
+    return {
+      userInfo: {
+        defaultSlot: {
+          name: 'default Name',
+          comment: 'this is show for default name'
+        },
+        headerSlot: {
+          name: 'header Name',
+          comment: 'this is show for header name'
+        },
+        footerSlot: {
+          name: 'footer Name',
+          comment: 'this is show for footer name'
+        }
       }
     }
-  },
+  }
 }
 </script>

@@ -104,36 +104,35 @@ Vue.component("com-slot", {
 // $attrs $listeners
 Vue.component("ChildChild", {
   render (h) {
-      return h('div',{
-          style: {
-              "padding": "5px"
-          },
-          attrs: {
-              id: 'child-child'
-          },
-         
-      },[
-          h('input',{
-              attrs: {
-                  value: this.value,
-                  maxLength: this.maxLength
-              }
-          }),
-          h('button', {
-              // attrs: {
-              //     value: '触发第一层组件的方法'
-              // },
-              on: {
-                  click: this.clickMe
-              }
-          },'$listener触发第一层组件的方法')
-      ])
+    return h('div',{
+      style: {
+          "padding": "5px"
+      },
+      attrs: {
+          id: 'child-child'
+      },
+    },[
+      h('input',{
+        attrs: {
+          value: this.value,
+          maxLength: this.maxLength
+        }
+      }),
+      h('button', {
+        // attrs: {
+        //     value: '触发第一层组件的方法'
+        // },
+        on: {
+            click: this.clickMe
+        }
+      },'$listener触发第一层组件的方法')
+    ])
   },
   props: ['value','maxLength'],
   // inheritAttrs:false,
   methods: {
-      clickMe () {
-          this.$emit("childChild","click.childChild")
-      }
+    clickMe () {
+      this.$emit("childChild","click.childChild")
+    }
   },
 })
