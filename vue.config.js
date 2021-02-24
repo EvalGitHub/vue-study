@@ -21,7 +21,7 @@ var path = require('path')
 const PrerenderSPAPlugin = require('prerender-spa-plugin')
 // const Renderer = PrerenderSPAPlugin.PuppeteerRenderer
 module.exports = {
-  configureWebpack: {
+/*   configureWebpack: {
     plugins: [
         new webpack.DefinePlugin({
            'process.env.NODE_ENV':  'production'
@@ -46,7 +46,6 @@ module.exports = {
         })
        
     ],
-    
   },
   chainWebpack: (config) => {   // 解决vue-cli3脚手架创建的项目压缩html 干掉<!-- shell -->导致骨架屏不生效
     if (process.env.NODE_ENV !== 'development') {
@@ -54,5 +53,12 @@ module.exports = {
       opts[0].minify.removeComments = false
       return opts
     })
-  }}
+  }}, */
+  devServer: {
+    // host: '127.0.0.1',
+    port: 9099,
+    // https: false,
+    // hotOnly: false,
+    // proxy: null, 
+  }
 };
