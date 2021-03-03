@@ -2,6 +2,8 @@ import Vue from 'vue'
 import App from './App.vue'
 import store from './store'
 import router from './router'
+import ElementUI from "element-ui";
+import "element-ui/lib/theme-chalk/index.css";
 import VueLazyload from 'vue-lazyload'
 import vMessage from './components/Toast/index' 
 
@@ -10,6 +12,7 @@ import EvelUI from 'evel-ui';
 import './utils/registerComponent.js'
 // or with options
 
+Vue.use(ElementUI);
 Vue.use(VueLazyload, {
   preLoad: 1.3,
   error: require('./assets/errors.jpg'),
