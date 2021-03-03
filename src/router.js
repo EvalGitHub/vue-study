@@ -67,6 +67,11 @@ export default new Router({
       path: '/evelUi',
       name: 'evelUi',
       component: () => import ('./views/EvelUi.vue')
-    }
+    },
+    {
+      path: '/uploadFile',
+      name: 'uploadFile',
+      component: () => import ('./views/upload_file/index.vue')
+    },
   ]
 })

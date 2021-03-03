@@ -34,6 +34,7 @@ function validateFileName (str) {
 const requireComponent = require.context('../components', true, /\.vue$/)
 
 // 找到组件文件夹下以.vue命名的文件，如果文件名为index，那么取组件中的name作为注册的组件名
+console.log('requireComponent.keys()', requireComponent.keys());
 requireComponent.keys().forEach(filePath => {
   const componentConfig = requireComponent(filePath) // 组件的内容
   const fileName = validateFileName(filePath) 

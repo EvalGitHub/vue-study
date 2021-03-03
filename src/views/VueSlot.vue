@@ -11,9 +11,9 @@
            <div style="color: green">
               <p>A paragraph for the main content.</p>
               <p>And another one.</p>  
-              <span>name: {{userInfo.defaultSlot.name}}</span> 
+              <span v-if="userInfo">name: {{userInfo.defaultSlot.name}}</span> 
               ---
-              <span>comment: {{userInfo.defaultSlot.comment}}</span> 
+              <span v-if="userInfo">>comment: {{userInfo.defaultSlot.comment}}</span> 
            </div>
          </template>
 
