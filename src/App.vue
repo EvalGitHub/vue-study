@@ -11,6 +11,7 @@
       <router-link class="nav-item" tag="div" to="/vueSlot">vueSlot</router-link>
       <router-link class="nav-item" tag="div" to="/evelUi">evelUi</router-link>
       <router-link class="nav-item" tag="div" to="/uploadFile">uploadFile</router-link>
+      <router-link class="nav-item" tag="div" to="/monacoEditor">monacoEditor</router-link>
     </div>
     <div class="contain-view">
       <keep-alive>

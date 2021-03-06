@@ -73,5 +73,10 @@ export default new Router({
       name: 'uploadFile',
       component: () => import ('./views/upload_file/index.vue')
     },
+    {
+      path: '/monacoEditor',
+      name: 'monacoEditor',
+      component: () => import ('./views/monaco_editor/index.vue')
+    },
   ]
 })
