@@ -78,5 +78,10 @@ export default new Router({
       name: 'monacoEditor',
       component: () => import ('./views/monaco_editor/index.vue')
     },
+    {
+      path: '/vueDraggable',
+      name: 'vueDraggable',
+      component: () => import ('./views/vue_draggable/index.vue')
+    }
   ]
 })
