@@ -9,7 +9,7 @@
 </template>
 <script>
     import * as monaco from 'monaco-editor';
-    
+    // import {EditorRuleColorConfig, EditorColorConfig} from './editor_config';
     export default {
         name: 'monacoEditor',
         data() {
@@ -19,22 +19,24 @@
             }
         },
         mounted() {
-            monaco.editor.defineTheme('mytheme', {
-                base: 'vs',
-                inherit: false,
-                rules: [
-                    {token: 'source.myLang', foreground: '606266'},
-                    {background: 'DC143C'}
-                ],
-                colors: {
-                    'editor.background': '#8fbda8',
-                    'editor.lineHighlightBorder': '#cccccc'
-                }
+            monaco.editor.defineTheme('myCustomTheme', {
+                "inherit":true,
+                "base":"vs-dark",
+                "colors": {
+                    "editor.background": '#101010'
+                },
+                "rules": [
+                    { token: 'custom-info', foreground: 'a3a7a9', background: 'ffffff' },
+                    { token: 'custom-error', foreground: 'ee4444' },
+                    { token: 'custom-notice', foreground: '1055af' },
+                    { token: 'custom-date', foreground: '20aa20' },
+                ]
             });
             this.monacoEditor = monaco.editor.create(document.getElementById('container'), {
                 value: this.value,
                 language: 'javascript',
-                BuiltinTheme: 'vs-dark'
+                BuiltinTheme: 'vs-dark',
+                theme: 'myCustomTheme'
             });
         }
     }
