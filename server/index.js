@@ -34,25 +34,34 @@ const createUploadedList = async fileHash => {
 
 // 合并切片
 const mergeFileChunk = async (filePath, fileHash, size) => {
-    const chunkDir = path.resolve(UPLOAD_DIR, fileHash);
-    const chunkPaths = await fse.readdir(chunkDir);
-    // 根据切片下标进行排序
-    // 否则直接读取目录的获得的顺序可能会错乱
-    chunkPaths.sort((a, b) => a.split("-")[1] - b.split("-")[1]);
-    await Promise.all(
-      chunkPaths.map((chunkPath, index) =>
-        pipeStream(
-          path.resolve(chunkDir, chunkPath),
-          // 指定位置创建可写流
-          fse.createWriteStream(filePath, {
-            start: index * size,
-            end: (index + 1) * size
-          })
-        )
+  const chunkDir = path.resolve(UPLOAD_DIR, fileHash);
+  const chunkPaths = await fse.readdir(chunkDir);
+  // 根据切片下标进行排序
+  // 否则直接读取目录的获得的顺序可能会错乱
+  chunkPaths.sort((a, b) => a.split("-")[1] - b.split("-")[1]);
+  await Promise.all(
+    chunkPaths.map((chunkPath, index) =>
+      pipeStream(
+        path.resolve(chunkDir, chunkPath),
+        // 指定位置创建可写流
+        fse.createWriteStream(filePath, {
+          start: index * size,
+          end: (index + 1) * size
+        })
       )
-    );
-    fse.rmdirSync(chunkDir); // 合并后删除保存切片的目录
-  };
+    )
+  );
+  fse.rmdirSync(chunkDir); // 合并后删除保存切片的目录
+};
+
+const getRange = (range) => {
+  if (!range) return {start: 0, end: 1};
+  let _arr = range.split('=')[1].split('-');
+  return {
+    start: Number(_arr[0]),
+    end: Number(_arr[1]),
+  }
+}
   
 
 server.on("request", async (req, res) => {
@@ -78,7 +87,7 @@ server.on("request", async (req, res) => {
         );
     }
 
-    if (req.url === '/verify') {
+    if (req.url === '/verify') { // 校验
       const data = await resolvePost(req);
       const {fileHash, filename} = data;
       const ext = extractExt(filename);
@@ -96,7 +105,7 @@ server.on("request", async (req, res) => {
       }
     }
 
-    if (req.url === '/') {
+    if (req.url === '/') { // 文件上传
       const multipart = new multiparty.Form();
       multipart.parse(req, async(err, fields, files) => {
           if (err) {
@@ -125,6 +134,36 @@ server.on("request", async (req, res) => {
           await fse.move(chunk.path, path.resolve(chunkDir, hash));
           res.end("received file chunk");
       })
+    }
+
+    if (req.url === '/download/file') {
+      const data = await resolvePost(req);
+      const {filename, filehash} = data;
+      const ext = extractExt(filename);
+      const filePath = path.resolve(UPLOAD_DIR, `${filehash}${ext}`);
+      const { size } = fse.statSync(filePath);
+      const range = req.headers['range'];
+      res.setHeader('Accept-Ranges', 'bytes');
+      if (!range) {
+        let content = fse.readFileSync(filePath); // 小文件 直接读取文件
+        res.end(content);
+        return;
+      } else { // 大文件 - 文件流
+        let {start, end} = getRange(range);
+        if (start >= size) {
+          res.end(null);
+          return;
+        } 
+        if (end > size) {
+          end = size;
+        }
+        res.setHeader('Content-Range', `bytes ${start}-${end ? end : size - 1}/${size}`);
+        let content = fse.createReadStream(filePath, { start, end });
+        
+        const buf1 = Buffer.from('eeee');
+        
+        res.end(buf1);
+      }
     }
 });
 

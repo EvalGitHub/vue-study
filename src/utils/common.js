@@ -1,4 +1,4 @@
-export function xhrFun({ url, method = "post", data, headers = {}, onProgress, requestList}) {
+export function xhrFun({ url, method = "post", data, headers = {}, responseType, onProgress, requestList}) {
     return new Promise(resolve => {
         const xhr = new XMLHttpRequest();
         typeof onProgress === 'function' && xhr.upload.addEventListener("progress", (e) => {
@@ -8,6 +8,9 @@ export function xhrFun({ url, method = "post", data, headers = {}, onProgress, r
         Object.keys(headers).forEach(key =>
             xhr.setRequestHeader(key, headers[key])
         );
+        if (responseType) {
+            xhr.responseType = responseType;
+        }
         xhr.send(data);
         xhr.onload = e => {
             if (requestList) {

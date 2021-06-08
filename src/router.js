@@ -82,6 +82,11 @@ export default new Router({
       path: '/vueDraggable',
       name: 'vueDraggable',
       component: () => import ('./views/vue_draggable/index.vue')
+    },
+    {
+      path: '/eruda',
+      name: 'eruda',
+      component: () => import ('./views/eruda/index.vue')
     }
   ]
 })

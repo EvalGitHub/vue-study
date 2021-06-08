@@ -1,37 +1,40 @@
 <template>
-   <div>
-    <input type="file" @change="handleFileChange" />
-    <el-button @click="handleUpload">上传</el-button>
-    <span>{{uploadPercentage}}</span>
-    <p>
-        <el-button @click="handlePause">暂停上传</el-button> 
-        <el-button @click="handleResume">恢复上传</el-button> 
-    </p>
-    <div class="text-align-left">计算文件 hash</div>
-    <el-progress :percentage="hashPercentage"></el-progress>
-    <div class="text-align-left">总进度</div>
-    <el-progress :percentage="uploadPercentage"></el-progress>
-        <el-table :data="fileData">
-            <el-table-column
-                prop="hash"
-                label="切片hash"
-                align="center"
-            ></el-table-column>
-            <el-table-column label="大小(KB)" align="center" width="120">
-                <template v-slot="{ row }">
-                {{ row.size | transformByte }}
-                </template>
-            </el-table-column>
-            <el-table-column label="进度" align="center">
-                <template v-slot="{ row }">
-                    <el-progress
-                        :percentage="row.percentage"
-                        color="#909399"
-                    ></el-progress>
-                </template>
-            </el-table-column>
-        </el-table>
-  </div>
+    <article>
+        <section>
+            <input type="file" @change="handleFileChange" />
+            <el-button @click="handleUpload">上传</el-button>
+            <span>--- {{uploadPercentage}}</span>
+            <el-button @click="getFile">下载文件</el-button> 
+            <p>
+                <el-button @click="handlePause">暂停上传</el-button> 
+                <el-button @click="handleResume">恢复上传</el-button> 
+            </p>
+            <div class="text-align-left">计算文件 hash</div>
+            <el-progress :percentage="hashPercentage"></el-progress>
+            <div class="text-align-left">总进度</div>
+            <el-progress :percentage="uploadPercentage"></el-progress>
+            <el-table :data="fileData">
+                <el-table-column
+                    prop="hash"
+                    label="切片hash"
+                    align="center"
+                ></el-table-column>
+                <el-table-column label="大小(KB)" align="center" width="120">
+                    <template v-slot="{ row }">
+                    {{ row.size | transformByte }}
+                    </template>
+                </el-table-column>
+                <el-table-column label="进度" align="center">
+                    <template v-slot="{ row }">
+                        <el-progress
+                            :percentage="row.percentage"
+                            color="#909399"
+                        ></el-progress>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </section>
+  </article>
 </template>
 
 <script>
@@ -118,22 +121,22 @@
 
             // 上传切片
             async uploadChunks(uploadedList = []) {
-            const requestList = this.fileData.filter(({ hash }) => !uploadedList.includes(hash))
-                .map(({chunk, hash, index}) => {
-                const formData = new FormData;
-                    formData.append("chunk", chunk);
-                    formData.append("hash", hash);
-                    formData.append("filename", this.container.file.name);
-                    formData.append("fileHash", this.container.hash);
-                    return {formData, index};
-            }).map(async({formData, index}) => xhrFun({  
-                    url: "http://localhost:3000",
-                    data: formData, 
-                    onProgress: this.createProgressHandler(this.fileData[index]),
-                    requestList: this.requestList
-                }));
-            await Promise.all(requestList); // 并发切片
-            await this.mergeRequest();
+                const requestList = this.fileData.filter(({ hash }) => !uploadedList.includes(hash))
+                    .map(({chunk, hash, index}) => {
+                    const formData = new FormData;
+                        formData.append("chunk", chunk);
+                        formData.append("hash", hash);
+                        formData.append("filename", this.container.file.name);
+                        formData.append("fileHash", this.container.hash);
+                        return {formData, index};
+                }).map(async({formData, index}) => xhrFun({  
+                        url: "http://localhost:3000",
+                        data: formData, 
+                        onProgress: this.createProgressHandler(this.fileData[index]),
+                        requestList: this.requestList
+                    }));
+                await Promise.all(requestList); // 并发切片
+                await this.mergeRequest();
             },
 
             // 文件秒传进行校验
@@ -190,6 +193,100 @@
                     item.percentage = parseInt(String((e.loaded / e.total) * 100));
                 }
             },
+
+            // 文件下载
+             /*   downloadRange(url, start, end, i) {
+
+            }, */
+
+            /*      getFileInfo() {
+                return xhrFun({
+                    url: "http://localhost:3000/download/file",
+                    method: 'head',
+                }); 
+            }, */
+
+            async getFile() {
+                const fileSize = this.container.file.size;
+                console.log('fileSize', fileSize);
+                const downloadReqArr = [];
+                let start = 0;
+                let i = 0;
+                while(start < fileSize) {
+                    downloadReqArr.push(this.downloadFile(start, start + SIZE -1, i++));
+                    start+=SIZE;
+                }
+                let dataSectionArr = await Promise.all(downloadReqArr);
+                this.concatenate(dataSectionArr);
+            },
+
+            async downloadFile(start, end, i) {
+            /*     const {data} = await xhrFun({
+                    url: "http://localhost:3000/download/file",
+                    headers: {
+                        'content-type': 'application/json',
+                        'range': `bytes=${start}-${end}`,
+                    },
+                    data: JSON.stringify({
+                        filehash: this.container.hash,
+                        filename: this.container.file.name,
+                    }),
+                    responseType: 'blob',
+                }); 
+                return data; */
+                let count = 0;
+                return new Promise((resolve) => {
+                    const req = new XMLHttpRequest();
+                    req.open("POST", "http://localhost:3000/download/file", true);
+                    req.setRequestHeader("range", `bytes=${start}-${end}`);
+                    req.setRequestHeader("content-type", 'application/json');
+                    req.responseType = "blob";
+                    req.onload = function () {
+                        req.response.arrayBuffer().then((res) => {
+                            count++;
+                            console.log(`下载百分比${((count / length) * 100).toFixed(2)}`);
+                            resolve({
+                                i,
+                                buffer: JSON.parse(res),
+                            });
+                        });
+                    };
+                    req.send(JSON.stringify({
+                        filehash: this.container.hash,
+                        filename: this.container.file.name,
+                    }),);
+                });
+            },
+
+            // 合并文件
+            concatenate(dataSectionArr) {
+                console.log('dataSectionArr', dataSectionArr);
+                // resultConstructor, arrays
+                const arrBufferList = dataSectionArr.sort(item => item.i - item.i).map(item => new Uint8Array(item.buffer));
+                console.log('arrBufferList', arrBufferList);
+                let totalLength = 0;
+                for (let arr of arrBufferList) {
+                    totalLength += arr.length;
+                }
+                let result = new Uint8Array(totalLength);
+                let offset = 0;
+                for (let arr of arrBufferList) {
+                    result.set(arr, offset);
+                    offset += arr.length;
+                }
+                this.downFileFun(result);
+            },
+
+            downFileFun(data) {
+                const aTag = document.createElement('a');
+                const blob = new Blob([data],  { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+                const blobUrl = URL.createObjectURL(blob);
+                aTag.href = blobUrl;
+                aTag.download = 'downFile';
+                aTag.click();
+                URL.revokeObjectURL(blob);
+                console.timeEnd("直接下载");
+            }
         }
     };
 </script>

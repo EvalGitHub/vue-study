@@ -13,6 +13,7 @@
       <router-link class="nav-item" tag="div" to="/uploadFile">uploadFile</router-link>
       <router-link class="nav-item" tag="div" to="/monacoEditor">monacoEditor</router-link>
       <router-link class="nav-item" tag="div" to="/vueDraggable">vueDraggable</router-link>
+      <router-link class="nav-item" tag="div" to="/eruda">eruda</router-link>
     </div>
     <div class="contain-view">
       <keep-alive>
